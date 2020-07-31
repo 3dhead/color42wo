@@ -1,0 +1,84 @@
+<div class="col" id="header">
+	<!-- <img id="title" src="images/logo-02.png"> -->
+	<div id="subtitle">color42wo: the paint by color buddy</div>
+	<br>
+</div>
+
+
+<div class="col" id="description">
+	<p ng-class="{ 'other-step': step != 'load' }">1. Load an image of almost any filetype! Panorama, stills, .img/.jpg/.jpeg/.ico & most imaginable file formats supported.</p>
+	<p ng-class="{ 'other-step': step != 'select' }">2. Select several points on the image to reduce & smoothen the image's base color palette. <br> Pallete depth: &#8721; i=2-3+ colors REQUIRED, &#8721; i=3-15 colors LOW-CORRELATION,<br> &#8721; i=15-20 colors MED-CORRELATION, &#8721; i=20-40 colors HIGH-CORRELATION.</p>
+	<p ng-class="{ 'other-step': step != 'select' || palette.length < 2 }">3. Hit the ENTER key or "Blend", and your file will be segmented by "paint by number" & converted into two file templates. <br> I recommend ~15 colors to start.</p>
+	<p ng-class="{ 'other-step': step != 'result' }">4. Save the divvied outline (bare) and smoothened goal (filled) palette, print them out on medium of choice, and paint/color/origami who knows!</p>
+	<p ng-class="'other-step'"><em>Privacy note: Your image will only be loaded into the browser on your computer. Your results will not be uploaded, they can only be downloaded by YOU. <br> Saving: pressing either "Save" key will open a generated file in a new tab. If this file cannot be saved by Command+S \\ CTRL+S, screenshot the image. Resolution quality will be preserved.</em></p>
+</div>
+
+<div class="col" id="loader" ng-show="step == 'load'" ng-style="loaderStyle" image-loaded="imageLoaded(img)" load-file>
+	<p>Drag + drop file to load or click to insert a local image.</p>
+	<div type="button" class="btn btn-default btn-primary"><i class="fa fa-download"></i>
+		Load
+		<input type="file" id="fileBrowser">
+	</div>
+	<p> (Note) --> videos or .gif such files must be stills. <br> IOS images will be most heavily modified, but predominantly for the best!</p>
+</div>
+
+
+<div class="col" id="toolbar">
+	<div id="buttons" ng-show="step != 'process'">
+		<div type="button" class="btn btn-default btn-info" ng-click="newImage()" ng-show="step == 'select'">Reset Image <i class="fa fa-trash"></i> </div>
+		<div type="button" class="btn btn-default btn-danger" ng-click="newImage()" ng-show="step == 'result'">Reset Image <i class="fa fa-trash"></i> </div>
+		<div type="button" class="btn btn-default" ng-click="clearPalette()" ng-show="step == 'select' && palette.length > 0">Delete Color Choices <i class="fa fa-times-circle"></i></div>
+		<div type="button" class="btn btn-primary" ng-click="pbnify()" ng-show="step == 'select' && palette.length > 1">BLEND <i class="fa fa-magic"></i></div>
+		<div type="button" class="btn btn-default btn-info" ng-click="recolor()" ng-show="step == 'result'">Reset Smoothening <i class="fa fa-reply"></i></div>
+		<div class="btn-group" role="group" ng-show="step == 'result'">
+			<div type="button" class="btn btn-primary" ng-click="viewFilled()" ng-show="step == 'result'">Colored Image (filled)</div>
+			<a id="save-filled" type="button" class="btn btn-success" ng-click="saveFilled()" target="_blank">Save <i class="fa fa-folder-open"></i></a>
+		</div>
+		<div class="btn-group" role="group" ng-show="step == 'result'">
+			<div type="button" class="btn btn-primary" ng-click="viewOutline()" ng-show="step == 'result'">Page to Color (bare)</div>
+			<a id="save-outline" type="button" class="btn btn-success" ng-click="saveOutline()" target="_blank">Save <i class="fa fa-folder-open"></i></a>
+		</div>
+		<a id="save-palette" type="button" class="btn btn-default btn-info" ng-click="savePalette()" ng-show="step == 'result'" target="_blank">Set of Colors (labeled) </a>
+	</div>
+	<div ng-show="step == 'process'"><img id="spinner" src="images/mannyfold.gif"> <br> {{ status }}</div>
+</div>
+
+
+<div class="col" id="palette">
+	<div class="swatch" ng-repeat="color in palette" ng-style="{ 'background-color': 'rgb(' + color.r + ',' + color.g + ',' + color.b + ')' }">
+
+		<div class="swatch-label" ng-show="step == 'result' && (view == 'outline' || colorInfoVisible == true)">{{ $index + 1 }}</div>
+		<img ng-click="removeColor(color)" ng-show="step == 'select'" src="images/delete.png">
+	</div>
+</div>
+
+
+<div class="col" id="color-info" ng-show="step == 'result'">
+	<div type="button" class="btn btn-default" ng-click="showColorInfo()" ng-show="colorInfoVisible == false">Color Info: Hexadecimal/RGB/HSL/HSV/HSB/CMYK <i class="fa fa-info-circle"></i></div>
+	<div type="button" class="btn btn-default" ng-click="hideColorInfo()" ng-show="colorInfoVisible == true">Collapse color info <i class="fa fa-times-circle"></i></div>
+	<p ng-repeat="color in palette" ng-show="colorInfoVisible == true" >
+		<strong>{{ $index + 1 }}</strong>: {{ color.hex }} |
+		<strong>RGB</strong>({{ color.r }}, {{ color.g }}, {{ color.b }}) |
+		<strong>HSL</strong>({{ color.hsl.h }}, {{ color.hsl.s }}%, {{ color.hsl.l }}%) |
+		<strong>HSV/HSB</strong>({{ color.hsv.h }}, {{ color.hsv.s }}%, {{ color.hsv.v }}%) |
+		<strong>CMYK</strong>({{ color.cmyk.c }}%, {{ color.cmyk.m }}%, {{ color.cmyk.y }}%, {{ color.cmyk.k }}%)
+	</p>
+</div>
+
+
+<div class="col" id="canvases">
+	<div class="canvas-container" ng-show="step == 'select' || step == 'process'">
+		<canvas id="img-canvas" stage></canvas>
+		<div class="sample-point" ng-repeat="color in palette" ng-style="{ left: (color.x - 5) + 'px', top: (color.y - 5) + 'px' }"></div>
+
+	</div>
+
+	<div class="canvas-container" ng-show="step == 'result' && view == 'filled'">
+		<canvas id="filled-canvas" result></canvas>
+	</div>
+
+	<div class="canvas-container" ng-show="step == 'result' && view == 'outline'">
+		<canvas id="outline-canvas" result></canvas>
+	</div>
+</div>
+

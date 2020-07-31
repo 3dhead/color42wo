@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>color42wo</title>
+    <meta name="description" content="A free online tool that turns any image of your choice into a paint by number.">
+    <meta property="og:title" content="color42wo">
+    <meta property="og:site_name" content="color42wo">
+    <meta property="og:url" content="https://color42wo.firebaseapp.com/">
+    <meta property="og:image" content="https://color42wo.firebaseapp.com/favicon.ico">
+    <meta property="og:type" content="website">
+
+    <meta name="viewport" content="width=device-width">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Baloo">
+  </head>
+  <body ng-app="pbnApp">
+
+    <div class="container">
+    <div ng-include="'views/main.html'" ng-controller="MainCtrl"></div>
+    </div>
+
+    <div class="container" id="footer">
+    <p>&copy;2020 Chase Maivald under the <a target="_blank" href="./LICENSE">MIT License.</a> <a target="_blank" href="https://github.com/chasem51/color42wo">Source</a> <br>
+      &copy;2018 Dan Munro under the <a target="_blank" href="https://directory.fsf.org/wiki/License:Expat">Expat License: </a>
+	<a href="javascript.html" target="_blank" data-jslicense="1">Credits</a>
+  <br> Research on the topic <a href="https://www.sciencedirect.com/science/article/pii/S1877050915014143" target="_blank">here, </a>
+<a href="https://programmerbackpack.com/k-means-clustering-for-image-segmentation/" target="_blank">here, </a>
+<a href="https://towardsdatascience.com/introduction-to-image-segmentation-with-k-means-clustering-83fd0a9e2fc3" target="_blank">here.</a></p>
+
+</div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="scripts/lodash.js"></script>
+
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/directives/stage.js"></script>
+    <script src="scripts/directives/loadfile.js"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="/__/firebase/7.17.1/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="/__/firebase/7.17.1/firebase-analytics.js"></script>
+
+    <!-- Initialize Firebase -->
+    <script src="/__/firebase/init.js"></script>
+  </body>
+</html>
