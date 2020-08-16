@@ -1,6 +1,6 @@
 # Image segmentation: Paint/Color by Number
 
-K-means clustering solution to the NP-hard image segmentation "paint by number" technique, where input image's color dimensionality is smoothened, boiling down source coloration clusters most similar to user-selected color regions. By Chase Maivald.
+K-means clustering solution to the NP-hard image segmentation "paint by number" technique, where input image's color dimensionality is smoothened, boiling down source coloration clusters most similar to user-selected color regions.
 
 ![Demo Site Directions](images/directionsview.PNG)
 ![Full Demo View](images/completed_view.PNG)
@@ -18,7 +18,7 @@ K-means clustering solution to the NP-hard image segmentation "paint by number" 
 
 ## Credits
 
-- [Angular 1.6.4](https://angularjs.org/)
+- [Angular](https://angularjs.org/)
 - [jQuery](https://jquery.com/)
 - [bootstrap](https://getbootstrap.com/)
 - Image credits: [Chase Maivald](https://www.linkedin.com/in/chase-maivald-8552b5176/)
